@@ -1,0 +1,23 @@
+{
+  "name": "apic",
+  "version": "0.0.1",
+  "description": "An epic automatic api client builder!",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/euforic/apic.git"
+  },
+  "keywords": [ "api", "generator", "rest", "titanium", "api", "client" ],
+  "author": "Christian Sullivan <cs@euforic.co>",
+  "license": "MIT",
+  "dependencies": {
+    "superagent": "git://github.com/euforic/superagent.git"
+  },
+  "devDependencies": {
+    "should": "*",
+    "mocha": "*"
+  },
+  "main": "index.js",
+  "engines": {
+    "node": "*"
+  }
+}
