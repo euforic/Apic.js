@@ -6,6 +6,8 @@
   - Browser
   - Node.js
 
+For more platform specific examples see the [examples folder](https://github.com/euforic/Apic.js/tree/master/examples)
+
 ## Building
 
   Install dependencies:
