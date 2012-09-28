@@ -38,7 +38,37 @@
 <li>Titanium Mobile</li>
 <li>Browser</li>
 <li>Node.js</li>
-</ul><h2>Schema</h2>
+</ul><p>For more platform specific examples see the <a href="https://github.com/euforic/Apic.js/tree/master/examples">examples folder</a></p>
+
+<h2>Building</h2>
+
+<p>Install dependencies:</p>
+
+<pre><code>$ npm install -d
+</code></pre>
+
+<p>Build</p>
+
+<pre><code>$ make
+</code></pre>
+
+<h2>Installing</h2>
+
+<p>Node.js via npm:</p>
+
+<pre><code>$ npm install apic
+</code></pre>
+
+<p>Browser and Titanium</p>
+
+<pre><code>$ git clone git://github.com/euforic/Apic.js.git
+$ cd Apic.js
+$ install -d
+$ make
+$ cp apic.js YOUR_APP_DIR/
+</code></pre>
+
+<h2>Schema</h2>
 
 <p>The api schema is composed of <strong>namespaces</strong>, <strong>actions</strong>, <strong>verb</strong>, <strong>url</strong>(optional), <strong>path</strong>(optional).
 Overide default action request path by setting the path option.
