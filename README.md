@@ -6,6 +6,30 @@
   - Browser
   - Node.js
 
+## Building
+
+  Install dependencies:
+
+    $ npm install -d
+
+  Build
+
+    $ make
+
+## Installing
+
+  Node.js via npm:
+
+    $ npm install apic
+
+  Browser and Titanium
+
+    $ git clone git://github.com/euforic/Apic.js.git
+    $ cd Apic.js
+    $ install -d
+    $ make
+    $ cp apic.js YOUR_APP_DIR/
+
 ## Schema
 The api schema is composed of __namespaces__, __actions__, __verb__, __url__(optional), __path__(optional).
 Overide default action request path by setting the path option.
