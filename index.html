@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Apic.js by euforic</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Apic.js</h1>
+        <h2>Rest API Client Builder thats pretty epic.</h2>
+        <a href="https://github.com/euforic/Apic.js" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>apic - Epic API Client Builder.</h1>
+
+<p>Are you tired of writing trivial restful api clients I know I am! apic is a cross-platform automatic api client builder!</p>
+
+<h2>Supported Platforms</h2>
+
+<ul>
+<li>Titanium Mobile</li>
+<li>Browser</li>
+<li>Node.js</li>
+</ul><h2>Schema</h2>
+
+<p>The api schema is composed of <strong>namespaces</strong>, <strong>actions</strong>, <strong>verb</strong>, <strong>url</strong>(optional), <strong>path</strong>(optional).
+Overide default action request path by setting the path option.
+Overide base url by setting the url option.</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">sampleSchema</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="c1">// Creates _user_ namespace</span>
+  <span class="nx">user</span><span class="o">:</span><span class="p">[</span>
+      <span class="c1">// Request will result in a get request to `BASE_URL/user/show`</span>
+      <span class="p">{</span> <span class="nx">action</span><span class="o">:</span><span class="s1">'show'</span>   <span class="p">,</span> <span class="nx">verb</span><span class="o">:</span><span class="s1">'GET'</span> <span class="p">}</span>
+
+      <span class="c1">// Request will result in a put request to `BASE_URL/account/add/new`</span>
+    <span class="p">,</span> <span class="p">{</span> <span class="nx">action</span><span class="o">:</span><span class="s1">'create'</span> <span class="p">,</span> <span class="nx">verb</span><span class="o">:</span><span class="s1">'PUT'</span><span class="p">,</span> <span class="nx">path</span><span class="o">:</span><span class="s1">'/account/add/new'</span> <span class="p">}</span>
+
+      <span class="c1">// Request will result in delete request to `http://api.adhocurl.com/remove`</span>
+    <span class="p">,</span> <span class="p">{</span> <span class="nx">action</span><span class="o">:</span><span class="s1">'remove'</span> <span class="p">,</span> <span class="nx">verb</span><span class="o">:</span><span class="s1">'DELETE'</span> <span class="nx">url</span><span class="o">:</span><span class="s1">'http://api.adhocurl.com'</span> <span class="p">}</span>
+
+      <span class="c1">// Request will result in a post request to `http://api.adhocurl.com/member/auth`</span>
+    <span class="p">,</span> <span class="p">{</span> <span class="nx">action</span><span class="o">:</span><span class="s1">'login'</span>  <span class="p">,</span> <span class="nx">verb</span><span class="o">:</span><span class="s1">'POST'</span><span class="p">,</span> <span class="nx">url</span><span class="o">:</span><span class="s1">'http://api.adhocurl.com'</span><span class="p">,</span> <span class="nx">path</span><span class="o">:</span><span class="s1">'/member/auth'</span> <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">,</span> <span class="nx">job</span><span class="o">:</span><span class="p">[</span>
+    <span class="p">{</span> <span class="nx">action</span><span class="o">:</span><span class="s1">'create'</span> <span class="p">,</span> <span class="nx">verb</span><span class="o">:</span><span class="s1">'PUT'</span>    <span class="p">}</span>
+  <span class="p">,</span> <span class="p">{</span> <span class="nx">action</span><span class="o">:</span><span class="s1">'update'</span> <span class="p">,</span> <span class="nx">verb</span><span class="o">:</span><span class="s1">'POST'</span>   <span class="p">}</span>
+  <span class="p">,</span> <span class="p">{</span> <span class="nx">action</span><span class="o">:</span><span class="s1">'remove'</span> <span class="p">,</span> <span class="nx">verb</span><span class="o">:</span><span class="s1">'DELETE'</span> <span class="p">}</span>
+  <span class="p">,</span> <span class="p">{</span> <span class="nx">action</span><span class="o">:</span><span class="s1">'show'</span>   <span class="p">,</span> <span class="nx">verb</span><span class="o">:</span><span class="s1">'GET'</span>    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+
+<h2>Create w/ Schema</h2>
+
+<p>Geneate an API w/ the Provided Schema</p>
+
+<div class="highlight"><pre><span class="c1">// Create apic w/ Schema</span>
+<span class="kd">var</span> <span class="nx">scapic</span> <span class="o">=</span> <span class="nx">apic</span><span class="p">(</span><span class="nx">sampleSchema</span><span class="p">);</span>
+
+<span class="c1">// Set API's Base Url.</span>
+<span class="c1">// If Omitted will default to `'/'`</span>
+<span class="nx">scapic</span><span class="p">.</span><span class="nx">baseUrl</span> <span class="o">=</span> <span class="s1">'http://api.mysite.com'</span><span class="p">;</span>
+</pre></div>
+
+<h2>Add Namespace actions</h2>
+
+<p>Add namespace to apic api</p>
+
+<div class="highlight"><pre><span class="c1">// Create new apic</span>
+<span class="kd">var</span> <span class="nx">nsapic</span> <span class="o">=</span> <span class="nx">apic</span><span class="p">();</span>
+
+<span class="c1">// Set Base Url</span>
+<span class="nx">nsapic</span><span class="p">.</span><span class="nx">baseUrl</span> <span class="o">=</span> <span class="s1">'http://api.myothersite.com'</span><span class="p">;</span>
+
+<span class="c1">// Add namespace actions</span>
+<span class="nx">nsapic</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">'product'</span><span class="p">,</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="nx">action</span><span class="o">:</span><span class="s1">'create'</span> <span class="p">,</span> <span class="nx">verb</span><span class="o">:</span><span class="s1">'PUT'</span>    <span class="p">}</span>
+  <span class="p">,</span> <span class="p">{</span> <span class="nx">action</span><span class="o">:</span><span class="s1">'update'</span> <span class="p">,</span> <span class="nx">verb</span><span class="o">:</span><span class="s1">'POST'</span>   <span class="p">}</span>
+  <span class="p">,</span> <span class="p">{</span> <span class="nx">action</span><span class="o">:</span><span class="s1">'remove'</span> <span class="p">,</span> <span class="nx">verb</span><span class="o">:</span><span class="s1">'DELETE'</span> <span class="p">}</span>
+<span class="p">]);</span>
+
+<span class="c1">// Add another action to namespace</span>
+<span class="nx">nsapic</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">'product'</span><span class="p">,</span> <span class="p">[{</span> <span class="nx">action</span><span class="o">:</span><span class="s1">'show'</span>   <span class="p">,</span> <span class="nx">verb</span><span class="o">:</span><span class="s1">'GET'</span> <span class="p">}]);</span>
+
+<span class="c1">// Add more to our schema generated api example</span>
+<span class="nx">scapic</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">'user'</span><span class="p">,</span> <span class="p">[{</span> <span class="nx">action</span><span class="o">:</span><span class="s1">'message'</span>   <span class="p">,</span> <span class="nx">verb</span><span class="o">:</span><span class="s1">'POST'</span> <span class="p">}]);</span>
+</pre></div>
+
+<h2>Using you Generated API</h2>
+
+<div class="highlight"><pre><span class="c1">// Generated APIs</span>
+<span class="kd">var</span> <span class="nx">scApi</span> <span class="o">=</span> <span class="nx">myapic</span><span class="p">.</span><span class="nx">api</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">nsApi</span> <span class="o">=</span> <span class="nx">nsapic</span><span class="p">.</span><span class="nx">api</span><span class="p">;</span>
+
+<span class="c1">// apic Generated APIs</span>
+
+<span class="nx">scApi</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">'ted'</span> <span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">){</span>
+  <span class="c1">// Do something with response;</span>
+<span class="p">});</span>
+
+<span class="nx">scApi</span><span class="p">.</span><span class="nx">job</span><span class="p">.</span><span class="nx">update</span><span class="p">({</span><span class="nx">status</span> <span class="o">:</span><span class="s1">'complete'</span><span class="p">}</span> <span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">){</span>
+  <span class="c1">// Do something with response;</span>
+<span class="p">});</span>
+
+<span class="nx">scApi</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">message</span><span class="p">({</span> <span class="nx">id</span> <span class="o">:</span> <span class="mi">007</span><span class="p">,</span> <span class="nx">message</span><span class="o">:</span><span class="s1">'Api Clients\'s are easy with apic'</span><span class="p">}</span> <span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">){</span>
+  <span class="c1">// Do something with response;</span>
+<span class="p">});</span>
+
+<span class="nx">nsApi</span><span class="p">.</span><span class="nx">product</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">'book'</span> <span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">){</span>
+  <span class="c1">// Do something with response;</span>
+<span class="p">});</span>
+
+<span class="nx">nsApi</span><span class="p">.</span><span class="nx">product</span><span class="p">.</span><span class="nx">show</span><span class="p">({</span><span class="nx">status</span> <span class="o">:</span><span class="s1">'available'</span><span class="p">}</span> <span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">){</span>
+  <span class="c1">// Do something with response;</span>
+<span class="p">});</span>
+</pre></div>
+
+<h2>Running tests</h2>
+
+<p>Install dependencies:</p>
+
+<pre><code>$ npm install -d
+</code></pre>
+
+<p>Run tests</p>
+
+<pre><code>$ make test
+</code></pre>
+
+<h2>License</h2>
+
+<p>(The MIT License)</p>
+
+<p>Copyright (c) 2012 Christian Sullivan &lt;<a href="mailto:cs@euforic.co">cs@euforic.co</a>&gt;</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/euforic/Apic.js/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/euforic/Apic.js/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/euforic/Apic.js"></a> is maintained by <a href="https://github.com/euforic">euforic</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-26026539-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
