@@ -70,11 +70,10 @@ if('undefined' !== typeof Titanium){
             url = url +'/'+ ((method.path) ? method.path : namespace + '/' + method.action);
 
         // Debug Output
-        if(self.debug) { method.url = url; console.log('[HAPI DEBUG]:',{request:method}); }
+        if(self.debug) { console.log('[HAPI DEBUG]:',{request:method}); }
 
         request(verb, url)
-          .set('Accept', 'application/json')
-          .send(data)
+          .set('Accept', 'application/json')[(verb === 'GET') ? 'query' : 'send'](data)
           .end(function(response){
             callback(response);
             // Debug Output
