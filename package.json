@@ -1,6 +1,6 @@
 {
   "name": "apic",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Build epic API Clients that work on Browser, Node and Titanium Automatically",
   "repository": {
     "type": "git",

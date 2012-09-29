@@ -68,7 +68,7 @@ if('undefined' !== typeof Titanium){
         var verb = method.verb || 'GET';
         var callback = cb || noop;
         var url = (method.url) ? method.url : self.baseUrl;
-            url = url +'/'+ ((method.path) ? method.path : namespace + method.action);
+            url = url +'/'+ ((method.path) ? method.path : namespace + '/' + method.action);
 
         // Debug Output
         if(self.debug) { method.url = url; console.log('[HAPI DEBUG]:',{request:method}); }
@@ -79,7 +79,7 @@ if('undefined' !== typeof Titanium){
           .end(function(response){
             callback(response);
             // Debug Output
-            if(self.debug){ console.log('[HAPI DEBUG]:',{response:response}); }
+            if(self.debug){ console.log('[HAPI DEBUG]:',{request:{ data: data, url: url }, response:response}); }
           });
       };
     });
