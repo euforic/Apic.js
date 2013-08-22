@@ -10,7 +10,7 @@
   "author": "Christian Sullivan <cs@euforic.co>",
   "license": "MIT",
   "dependencies": {
-    "superagent": "git://github.com/euforic/superagent.git"
+    "superagent": "git://github.com/euforic/tiagent.git"
   },
   "devDependencies": {
     "should": "*",
