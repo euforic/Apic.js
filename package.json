@@ -6,11 +6,18 @@
     "type": "git",
     "url": "https://github.com/euforic/Apic.js.git"
   },
-  "keywords": [ "api", "generator", "rest", "titanium", "api", "client" ],
+  "keywords": [
+    "api",
+    "generator",
+    "rest",
+    "titanium",
+    "api",
+    "client"
+  ],
   "author": "Christian Sullivan <cs@euforic.co>",
   "license": "MIT",
   "dependencies": {
-    "superagent": "git://github.com/euforic/tiagent.git"
+    "superagent": "~0.15.4"
   },
   "devDependencies": {
     "should": "*",
